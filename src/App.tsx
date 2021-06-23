@@ -1,28 +1,25 @@
-import { useState } from "react";
-import './App.css';
-import useWindowSize from './hooks/useWindowSize';
+import React, { useState } from 'react'
+import Image from './components/Image'
 
-export default function App() {
-  const {width, height} = useWindowSize();
+export default function App () {
   const [file, setFile] = useState({
-    url: ""
-  });
+    isLoaded: false,
+    url: ''
+  })
 
-  function handleChange(event: any) {
+  function handleChange (event: any) {
     setFile({
+      isLoaded: true,
       url: URL.createObjectURL(event.target.files[0])
-    });
+    })
   }
 
   return (
     <div>
-      <div id="WindowSize">{width} &bull; {height}</div>
-      <div hidden={file.url.length !== 0}>
+      <div hidden={file.isLoaded}>
         <input type="file" onChange={handleChange} />
       </div>
-      <div hidden={file.url.length === 0}>
-        <img src={file.url} style={{ maxWidth: width, maxHeight: height }} />
-      </div>
+      <Image url={file.url} hidden={!file.isLoaded} />
     </div>
-  );
+  )
 }
