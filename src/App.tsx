@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Image from './components/Image'
+import ImagePreview from './components/ImagePreview'
 
 export default function App () {
   const [file, setFile] = useState({
@@ -15,11 +15,11 @@ export default function App () {
   }
 
   return (
-    <div>
+    <div className='h100'>
       <div hidden={file.isLoaded}>
         <input type="file" onChange={handleChange} />
       </div>
-      <Image url={file.url} hidden={!file.isLoaded} />
+      {file.isLoaded ? <ImagePreview url={file.url} /> : null}
     </div>
   )
 }
